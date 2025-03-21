@@ -11,6 +11,12 @@
     <artifactId>sky-server</artifactId>
     <dependencies>
 
+        <!--mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.sky</groupId>
             <artifactId>sky-common</artifactId>
