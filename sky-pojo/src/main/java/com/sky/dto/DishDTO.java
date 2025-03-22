@@ -1,5 +1,7 @@
 package com.sky.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.sky.entity.DishFlavor;
 import lombok.Data;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.util.List;
 @Data
 public class DishDTO implements Serializable {
 
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
     //菜品名称
     private String name;
