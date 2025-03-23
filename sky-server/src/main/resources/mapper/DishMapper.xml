@@ -10,4 +10,80 @@
         values
         (#{name},#{price},#{image},#{description},#{status},#{categoryId},#{createTime},#{updateTime},#{createUser},#{updateUser})
     </insert>
+
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
+        select
+        d.id,d.name,d.category_id,d.price,d.image,d.description,d.status,d.update_time,c.name as categoryName
+        from dish d
+        left join category c
+        on d.category_id = c.id
+        <where>
+            <if test="name != null">
+                d.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and d.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and d.status = #{status}
+            </if>
+        </where>
+        order by d.create_time desc
+    </select>
+
+    <resultMap id="DishVOMap" type="com.sky.vo.DishVO" autoMapping="true">
+
+        <id column="id" property="id"/>
+        <collection property="flavors" ofType="com.sky.entity.DishFlavor" autoMapping="true">
+            <id column="flavor_id" property="id"/>
+            <result column="flavorName" property="name"/>
+            <result column="dish_id" property="dishId"/>
+        </collection>
+    </resultMap>
+
+    <select id="getByIdWithFlavor" resultMap="DishVOMap">
+        select
+        d.id,d.name,d.category_id,d.price,d.image,d.description,d.status,d.update_time,
+        c.name as categoryName,
+        df.id as flavor_id,df.dish_id,df.name as flavorName,df.value
+        from dish d
+        left join category c
+        on d.category_id = c.id
+        left join dish_flavor df
+        on d.id = df.dish_id
+        where d.id = #{id}
+
+    </select>
+
+    <update id="update">
+        update dish
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

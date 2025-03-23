@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 public class DishDTO implements Serializable {
 
-    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
     //菜品名称
     private String name;
