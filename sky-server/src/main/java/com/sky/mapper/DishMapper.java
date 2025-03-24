@@ -10,6 +10,8 @@ import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface DishMapper extends BaseMapper<Dish>{
 
@@ -31,4 +33,9 @@ public interface DishMapper extends BaseMapper<Dish>{
 
     @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
+
+    List<Dish> selectByCategoryId(Dish dish);
+
+    @Select("select a.* from dish a left join setmeal_dish b on a.id = b.dish_id where b.setmeal_id = #{setmealId}")
+    List<Dish> getBySetmealId(Long id);
 }

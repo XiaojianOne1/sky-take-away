@@ -32,7 +32,6 @@
     </select>
 
     <resultMap id="DishVOMap" type="com.sky.vo.DishVO" autoMapping="true">
-
         <id column="id" property="id"/>
         <collection property="flavors" ofType="com.sky.entity.DishFlavor" autoMapping="true">
             <id column="flavor_id" property="id"/>
@@ -52,7 +51,6 @@
         left join dish_flavor df
         on d.id = df.dish_id
         where d.id = #{id}
-
     </select>
 
     <update id="update">
@@ -85,5 +83,23 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="selectByCategoryId" resultType="com.sky.entity.Dish">
+        select *
+        from dish
+        <where>
+            <if test="categoryId != null">
+                category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="name != null">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
 
 </mapper>

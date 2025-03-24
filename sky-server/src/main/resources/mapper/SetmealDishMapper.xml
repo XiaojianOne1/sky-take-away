@@ -5,4 +5,17 @@
 <!-- namespace = 接口的全限定符  -->
 <mapper namespace="com.sky.mapper.SetmealDishMapper">
 
+    <insert id="insertBatch" parameterType="list">
+        insert into setmeal_dish
+        (setmeal_id,dish_id,name,price,copies)
+        values
+        <foreach collection="setmealDishes" item="sd" separator=",">
+            (#{sd.setmealId},#{sd.dishId},#{sd.name},#{sd.price},#{sd.copies})
+        </foreach>
+    </insert>
+
+    <select id="selectByDishId" resultType="com.sky.entity.SetmealDish">
+        select * from setmeal_dish where dish_id = #{dishId}
+    </select>
+
 </mapper>
