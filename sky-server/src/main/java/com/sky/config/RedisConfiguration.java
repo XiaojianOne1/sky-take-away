@@ -50,7 +50,6 @@ public class RedisConfiguration {
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         //设置key的序列化器
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-
        return redisTemplate;
    }
 

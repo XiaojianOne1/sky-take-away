@@ -23,6 +23,7 @@ mybatis:
   type-aliases-package: com.sky.entity
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
@@ -33,10 +34,17 @@ logging:
         controller: info
 
 sky:
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
   jwt:
     admin-secret-key: itcast
     admin-ttl: 86400000
     admin-token-name: token
+    user-secret-key: itheima
+    user-ttl: 86400000
+    user-token-name: authentication
+
   alioss:
     endpoint: ${sky.alioss.endpoint}
     access-key-id: ${sky.alioss.access-key-id}
