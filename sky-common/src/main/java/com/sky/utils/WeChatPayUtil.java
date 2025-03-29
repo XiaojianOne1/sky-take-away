@@ -2,6 +2,7 @@ package com.sky.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sky.constant.MessageConstant;
 import com.sky.properties.WeChatProperties;
 import com.wechat.pay.contrib.apache.httpclient.WechatPayHttpClientBuilder;
 import com.wechat.pay.contrib.apache.httpclient.util.PemUtil;
@@ -49,7 +50,7 @@ public class WeChatPayUtil {
      *
      * @return
      */
-    private CloseableHttpClient getClient() {
+    private CloseableHttpClient getClient() throws FileNotFoundException {
         PrivateKey merchantPrivateKey = null;
         try {
             //merchantPrivateKey商户API私钥，如何加载商户API私钥请看常见问题
@@ -66,9 +67,16 @@ public class WeChatPayUtil {
             // 通过WechatPayHttpClientBuilder构造的HttpClient，会自动的处理签名和验签
             CloseableHttpClient httpClient = builder.build();
             return httpClient;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
+//        } catch (FileNotFoundException e) {
+
+            //自己添加
+        } catch (Exception e) {
+
+            //自己添加
+            throw new FileNotFoundException("微信支付模块 找不到指定文件 正常现象");
+
+//            e.printStackTrace();
+//            return null;
         }
     }
 
