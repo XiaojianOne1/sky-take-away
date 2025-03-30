@@ -33,7 +33,19 @@ logging:
         service: info
         controller: info
 
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+
+
 sky:
+  shop:
+    address: 北京朝阳站
+  baidu:
+    ak: VX0QgzMvDVwnKtNZ0SJBeHMX3tjfRQoH
+
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
@@ -51,7 +63,4 @@ sky:
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
 
-mybatis-plus:
-  global-config:
-    db-config:
-      id-type: auto
+

@@ -11,6 +11,7 @@ import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
 import com.sky.vo.OrderPaymentVO;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
@@ -18,6 +19,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * ClassName  OrderController
@@ -85,37 +88,24 @@ public class OrderController {
      */
     @PutMapping("/payment")
     @ApiOperation("订单支付")
-    public Result payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
-
-    /*public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+//    public Result payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+    public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
         log.info("订单支付：{}", ordersPaymentDTO);
         OrderPaymentVO orderPaymentVO = orderService.payment(ordersPaymentDTO);
         log.info("生成预支付交易单：{}", orderPaymentVO);
-        return Result.success(orderPaymentVO);*/
+        return Result.success(orderPaymentVO);
 
-       /* //点击付款后  将状态改为待接单
-        LambdaUpdateWrapper<Orders> ordersLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-        ordersLambdaUpdateWrapper.eq(Orders::getUserId, BaseContext.getCurrentId())
-                .eq(Orders::getStatus,Orders.PENDING_PAYMENT)
-                .eq(Orders::getNumber,ordersPaymentDTO.getOrderNumber())
-                .set(Orders::getStatus, Orders.TO_BE_CONFIRMED);
-
-        // 检查是否能查询到符合条件的订单
-        Orders existingOrder = orderMapper.selectOne(ordersLambdaUpdateWrapper);
-        if (existingOrder == null) {
-            log.error("订单不存在或状态不符: {}", ordersLambdaUpdateWrapper);
-            return Result.error("订单不存在或已支付");
-        }
-*/
+       /*
         Orders orders = new Orders();
         orders.setUserId(BaseContext.getCurrentId());
         orders.setPayStatus(Orders.PAID);
         orders.setStatus(Orders.TO_BE_CONFIRMED);
         orders.setNumber(ordersPaymentDTO.getOrderNumber());
+        orders.setCheckoutTime(LocalDateTime.now());
 
         orderMapper.updateStatus(orders);
 
-        return Result.success("支付成功,但功能未开发");
+        return Result.success("支付成功,但功能未开发");*/
     }
 
     /**
@@ -172,4 +162,7 @@ public class OrderController {
         orderService.repetition(id);
         return Result.success();
     }
+
+
+
 }

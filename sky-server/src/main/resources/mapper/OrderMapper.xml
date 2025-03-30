@@ -61,7 +61,7 @@
         order by order_time desc
     </select>
 
-    <update id="updateStatus">
+    <!--<update id="updateStatus">
         update orders
         <set>
             <if test="status != null">
@@ -73,11 +73,12 @@
             <if test="userId != null">
                 user_id = #{userId},
             </if>
-            <if test="number != null">
-                number = #{number},
+            <if test="checkoutTime != null">
+                checkout_time = #{checkoutTime},
             </if>
         </set>
+        where number = #{number}
 
-    </update>
+    </update>-->
 
 </mapper>
