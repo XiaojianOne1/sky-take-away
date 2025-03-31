@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符  -->
+<mapper namespace="com.sky.mapper.UserMapper">
+
+    <select id="selectTotalUserAndNewUser" resultType="java.lang.Integer">
+        select count(id)
+        from user
+        <where>
+            <if test="begin != null">
+                create_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_time &lt; #{end}
+            </if>
+        </where>
+    </select>
+
+</mapper>

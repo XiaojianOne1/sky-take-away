@@ -5,6 +5,8 @@ import com.sky.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 /**
  * ClassName  UserMapper
  * Author  xiaojianOne
@@ -37,6 +39,15 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+
     @Select("select * from user where openid = #{openid}")
     User selectByOpenid(String openid);
+
+
+    /**
+     * 统计用户数量
+     * @param map
+     * @return
+     */
+    Integer selectTotalUserAndNewUser(Map map);
 }

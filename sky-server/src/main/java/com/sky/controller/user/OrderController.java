@@ -1,5 +1,6 @@
 package com.sky.controller.user;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sky.context.BaseContext;
@@ -14,6 +15,7 @@ import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.webSocket.WebSocketServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName  OrderController
@@ -58,6 +62,9 @@ import java.time.LocalDateTime;
 public class OrderController {
 
     @Autowired
+    private WebSocketServer webSocketServer;
+
+    @Autowired
     private OrderMapper orderMapper;
 
     @Autowired
@@ -88,11 +95,14 @@ public class OrderController {
      */
     @PutMapping("/payment")
     @ApiOperation("订单支付")
-//    public Result payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
     public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+
         log.info("订单支付：{}", ordersPaymentDTO);
+
         OrderPaymentVO orderPaymentVO = orderService.payment(ordersPaymentDTO);
+
         log.info("生成预支付交易单：{}", orderPaymentVO);
+
         return Result.success(orderPaymentVO);
 
        /*
@@ -107,6 +117,7 @@ public class OrderController {
 
         return Result.success("支付成功,但功能未开发");*/
     }
+
 
     /**
      * 历史订单查询
@@ -164,5 +175,17 @@ public class OrderController {
     }
 
 
+    /**
+     * 订单催单
+     * @param id
+     * @return
+     */
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("订单催单")
+    public Result reminder(@PathVariable("id") Long id){
+
+        orderService.reminder(id);
+        return Result.success();
+    }
 
 }

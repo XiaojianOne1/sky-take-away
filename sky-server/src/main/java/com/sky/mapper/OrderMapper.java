@@ -62,4 +62,9 @@ public interface OrderMapper extends BaseMapper<Orders> {
     List<Orders> getByStatusAndOrderTimeLT(@Param("status")Integer status,
                                            @Param("orderTime")LocalDateTime orderTime);
 
+    Long selectByNumber(String orderNumber);
+
+    Double selectTurnover(@Param("beginTime") LocalDateTime beginTime,
+                          @Param("endTime") LocalDateTime endTime,
+                          @Param("status") Integer status);
 }
