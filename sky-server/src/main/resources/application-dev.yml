@@ -9,8 +9,8 @@ sky:
 
   alioss:
     endpoint: oss-cn-qingdao.aliyuncs.com
-    access-key-id: LTAI5tG37H2g2VCcc9Stq9i9
-    access-key-secret: 4F2bIVUPNlQqJD5tbfI0W7CFmpArJs
+    access-key-id: xxxxxxxxxxxxxxxxx
+    access-key-secret: xxxxxxxxxxxxxxx
     bucket-name: sky-itcast-xiaojianone
 
   redis:
