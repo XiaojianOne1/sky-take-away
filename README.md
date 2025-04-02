@@ -12,6 +12,9 @@
 建议看视频
 https://www.bilibili.com/video/BV1TP411v7v6/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=a9d6f95fcf652389effa94447eedbce6
 
+使用了阿里云OSS对象存储服务 
+注意自己修改AccessKey
+
 #### 参与贡献
 
 1.  Fork 本仓库
